@@ -1,0 +1,64 @@
+{% extends 'screening/base.html' %}
+
+{% block title %}Screening Results - {{ job.title }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Screening Results for "{{ job.title }}"</h1>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        {% if screenings %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Candidate</th>
+                            <th>Skills Match</th>
+                            <th>Experience Match</th>
+                            <th class="text-center">Overall Score</th>
+                            <th>Resume</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for screening in screenings %}
+                            <tr>
+                                <td>{{ screening.resume.candidate_name }}</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: {{ screening.skills_match_score }}%;" aria-valuenow="{{ screening.skills_match_score }}" aria-valuemin="0" aria-valuemax="100">
+                                            {{ screening.skills_match_score|floatformat:1 }}%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ screening.experience_match_score }}%;" aria-valuenow="{{ screening.experience_match_score }}" aria-valuemin="0" aria-valuemax="100">
+                                            {{ screening.experience_match_score|floatformat:1 }}%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge bg-primary rounded-pill fs-6">
+                                        {{ screening.overall_score|floatformat:1 }}%
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="{{ screening.resume.resume_file.url }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                        View Resume
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="text-center py-5">
+                <p>No screening results available for this job.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

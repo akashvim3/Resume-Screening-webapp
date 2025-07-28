@@ -1,0 +1,41 @@
+{% extends 'screening/base.html' %}
+{% load form_tags %}
+
+{% block title %}Register - Resume Screener{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+        <div class="card shadow-lg border-0 rounded-lg mt-5">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold">Create an Account</h2>
+                    <p class="text-muted">Join us! It's quick and easy.</p>
+                </div>
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                        <div class="form-floating mb-3">
+                            {{ field|add_class:"form-control" }}
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {% if field.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ field.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">Create Account</button>
+                    </div>
+                </form>
+                <div class="mt-4 text-center">
+                    <small class="text-muted">Already have an account? <a href="{% url 'login' %}">Sign In</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

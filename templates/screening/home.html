@@ -1,0 +1,57 @@
+{% extends 'screening/base.html' %}
+
+{% block title %}Welcome to Resume Screener{% endblock %}
+
+{% block content %}
+<div class="text-center py-5">
+    <h1 class="display-4 fw-bold">Streamline Your Hiring Process</h1>
+    <p class="lead col-lg-6 mx-auto mb-4">
+        Our AI-powered tool helps you find the best candidates by screening resumes for skills and experience, saving you time and effort.
+    </p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg px-4 gap-3">Go to Dashboard</a>
+        {% else %}
+            <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-4 gap-3">Get Started</a>
+            <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-lg px-4">Login</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container px-4 py-5" id="featured-3">
+    <h2 class="pb-2 border-bottom text-center">Why Choose Us?</h2>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+      <div class="feature col text-center">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+            <i class="fas fa-cogs"></i>
+        </div>
+        <h3 class="fs-2">Smart Screening</h3>
+        <p>Automated analysis of resumes to match job requirements accurately.</p>
+      </div>
+      <div class="feature col text-center">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+            <i class="fas fa-chart-line"></i>
+        </div>
+        <h3 class="fs-2">Insightful Analytics</h3>
+        <p>Get detailed scores and analytics to make informed hiring decisions.</p>
+      </div>
+      <div class="feature col text-center">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+            <i class="fas fa-clock"></i>
+        </div>
+        <h3 class="fs-2">Time Saving</h3>
+        <p>Reduce manual effort and screen hundreds of resumes in minutes.</p>
+      </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+.feature-icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: .75rem;
+}
+</style>
+{% endblock %}

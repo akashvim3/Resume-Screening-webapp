@@ -1,0 +1,89 @@
+{% extends 'screening/base.html' %}
+
+{% block title %}Dashboard - Resume Screener{% endblock %}
+
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <a href="{% url 'job_create' %}" class="btn btn-primary shadow-sm">
+        <i class="fas fa-plus fa-sm text-white-50"></i> Create New Job
+    </a>
+</div>
+
+<div class="row">
+    <!-- Job Count Card -->
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Jobs Posted</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ job_count }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-briefcase fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resume Count Card -->
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Resumes Uploaded</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ resume_count }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-file-alt fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Recent Screenings</h6>
+    </div>
+    <div class="card-body">
+        {% if recent_screenings %}
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Candidate</th>
+                            <th>Overall Score</th>
+                            <th>Screened On</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for screening in recent_screenings %}
+                            <tr>
+                                <td>{{ screening.job.title }}</td>
+                                <td>{{ screening.resume.candidate_name }}</td>
+                                <td>{{ screening.overall_score|floatformat:2 }}%</td>
+                                <td>{{ screening.screened_at|date:"Y-m-d" }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-center">No recent screenings found.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_head %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+{% endblock %}
