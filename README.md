@@ -24,7 +24,7 @@ A modern Django web application that helps recruiters and hiring managers stream
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/resume-screening-web.git
+git clone https://github.com/akashvim3/resume-screening-web.git
 cd resume-screening-web
 ```
 
@@ -100,4 +100,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-Developed with ❤️ by Your Name
+Developed with ❤️ by Akash
